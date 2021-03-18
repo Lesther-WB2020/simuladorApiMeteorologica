@@ -69,7 +69,7 @@ document.getElementById('dataSolicitud').addEventListener('submit', async (event
                                     '<strong>DURANTE LA NOCHE: </strong> ' + infoClimaNoche   +unidad+ infoTemperaturaNoche   +' °C'+'<br>';
                                 }else{
                                     data.innerHTML = 
-                                    '<strong>DURANTE LA MAÑANA:</strong>' + infoClimaManiana + unidad + infoTemperaturaManiana +' °C'+'<br>';
+                                    '<strong>DURANTE LA MAÑANA: </strong>' + infoClimaManiana + unidad + infoTemperaturaManiana +' °C'+'<br>';
                                 }
                                 }, 1500); 
 })
