@@ -1,0 +1,32 @@
+/*
+#sonUnID{}
+.soyUnaClse{}
+*/
+body{
+    background-image: url('./img/content.jpg');
+   
+}
+#dataSolicitud{
+    background-color: rgb(48, 100, 255);
+    margin-top: 75px;
+}
+#answerSolicitud{
+    background-color: rgb(86, 155, 252);
+    margin-top: 25px;
+    display: table;
+}
+div{
+    text-align: center;
+    height: 250px;
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#dataSolicitud{
+    line-height: 200px;
+}
+#dataAnswer{
+    display: table-cell;
+    vertical-align: middle;
+}
+
