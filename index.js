@@ -21,6 +21,17 @@ document.getElementById('dataSolicitud').addEventListener('submit', async (event
                 if((fsDia == myDia)&&(fsMes==myMes)&&(fsAnio==myAnio)){
                     esHoy=true;
                 }
+
+                var fechaValida = true;
+                if(fsAnio<myAnio){
+                    fechaValida = false;
+                }else if((fsAnio==myAnio)&&(fsMes<myMes)){
+                    fechaValida = false;
+                }else if((fsAnio==myAnio)&&(fsMes==myMes)&&(fsDia<myDia)){
+                    fechaValida = false;
+                }
+
+                if(fechaValida){
                     //limpio los posibles datos anteriores.
                     titulo = document.getElementById('headerUno');
                     data = document.getElementById('dataTiempo');
@@ -41,8 +52,7 @@ document.getElementById('dataSolicitud').addEventListener('submit', async (event
                             //TAMBIÉN OBTENGO LA TEMPERATURA DE LA MAÑANA
                             await getTemperatura().then(resultado => infoTemperaturaManiana = resultado)
                             .catch(err => infoTemperaturaManiana = err);
-                            //CON BASE A LA TEMPERATURA, OBTENGO EL CLIMA, ESPERO UN MILISEGUNDO
-                            //DE MODO QUE SE PUEDA OBTENER LA TEMPERATURA ANTES DE ENVIARLA
+                            //CON BASE A LA TEMPERATURA, OBTENGO EL CLIMA
                                 getClima(infoTemperaturaManiana).then(resultado => infoClimaManiana = resultado)
                                 .catch(err =>infoClimaManiana = err);
                             
@@ -61,17 +71,21 @@ document.getElementById('dataSolicitud').addEventListener('submit', async (event
                                 // ahora simulo la espera de la consulta
                                 var unidad = 'TEMPERATURA DE ';
                                 setTimeout(() => {
-                                titulo.innerHTML = 'PRONÓSTICO DEL TIEMPO PARA EL ' + fs;
                                 if(esHoy==true){
+                                    titulo.innerHTML = 'PRONÓSTICO DEL TIEMPO PARA HOY, ' + fs;
                                     data.innerHTML = 
                                     '<strong>DURANTE LA MAÑANA: </strong>' + infoClimaManiana +unidad+ infoTemperaturaManiana +' °C'+'<br>'+
                                     '<strong>DURANTE LA TARDE: </strong> ' + infoClimaTarde   +unidad+ infoTemperaturaTarde   +' °C'+'<br>'+
                                     '<strong>DURANTE LA NOCHE: </strong> ' + infoClimaNoche   +unidad+ infoTemperaturaNoche   +' °C'+'<br>';
                                 }else{
+                                    titulo.innerHTML = 'PRONÓSTICO DEL TIEMPO PARA EL ' + fs;
                                     data.innerHTML = 
                                     '<strong>DURANTE LA MAÑANA: </strong>' + infoClimaManiana + unidad + infoTemperaturaManiana +' °C'+'<br>';
                                 }
                                 }, 1500); 
+                }else{
+                    alert('EL PRONÓSTICO SÓLO FUNCIONA CON FECHAS FUTURAS, Y LA DE HOY.');
+                }                    
 })
 
 function getClima(infoTemperatura){
